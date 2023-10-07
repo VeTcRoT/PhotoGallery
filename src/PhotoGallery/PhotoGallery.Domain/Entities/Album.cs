@@ -7,7 +7,6 @@
 
         public ICollection<Image> Images { get; set; } = 
             new List<Image>();
-        public ICollection<UserAlbum> UserAlbums { get; set; } = 
-            new List<UserAlbum>();
+        public ApplicationUser User { get; set; } = null!;
     }
 }
