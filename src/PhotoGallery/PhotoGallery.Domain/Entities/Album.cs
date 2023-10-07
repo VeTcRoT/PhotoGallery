@@ -1,8 +1,7 @@
 ﻿namespace PhotoGallery.Domain.Entities
 {
-    public class Album
+    public class Album : EntityBase
     {
-        public int Id { get; set; }
         public int Title { get; set; }
         public int Description { get; set; }
         public string FolderName { get; set; } = string.Empty;
