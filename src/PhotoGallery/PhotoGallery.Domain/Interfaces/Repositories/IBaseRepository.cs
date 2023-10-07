@@ -8,7 +8,6 @@ namespace PhotoGallery.Domain.Interfaces.Repositories
         Task<T?> GetByIdAsync(int id);
         Task<IReadOnlyCollection<T>> ListAllAsync();
         Task<T> CreateAsync(T entity);
-        void Update(T entity);
         void Delete(T entity);
     }
 }
