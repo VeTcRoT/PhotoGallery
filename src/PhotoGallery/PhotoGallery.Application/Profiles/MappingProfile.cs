@@ -19,7 +19,9 @@ namespace PhotoGallery.Application.Profiles
 
             CreateMap<CreateImageCommand, Image>();
             CreateMap<Image, CreateImageDto>();
-            CreateMap<Image, ListPagedImageDto>();
+            CreateMap<Image, ListPagedImageDto>()
+                .ForMember(i => i.Likes, opt => opt.MapFrom(i => i.Rate.Where(r => r.IsLike).Count()))
+                .ForMember(i => i.Dislikes, opt => opt.MapFrom(i => i.Rate.Where(r => !r.IsLike).Count()));
         }
     }
 }
