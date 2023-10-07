@@ -19,13 +19,18 @@ namespace PhotoGallery.Application.Features.Albums.Commands.UpdateAlbum
 
         public async Task<AlbumDto> Handle(UpdateAlbumCommand request, CancellationToken cancellationToken)
         {
-            var repo = _unitOfWork.GetRepository<Album>();
-            var albumToUpdate = await repo.GetByIdAsync(request.Id);
+            var albumToUpdate = await _unitOfWork.AlbumRepository.GetByIdAsync(request.Id);
 
             if (albumToUpdate == null)
             {
                 throw new ArgumentException(
                     $"Album with id: {request.Id} can't be found.", nameof(request.Id));
+            }
+
+            if (albumToUpdate.UserId != request.UserId)
+            {
+                throw new ArgumentException(
+                    "User have no right to update this album", nameof(request.UserId));
             }
 
             _mapper.Map(request, albumToUpdate, typeof(UpdateAlbumCommand), typeof(Album));

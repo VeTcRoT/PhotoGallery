@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace PhotoGallery.Application.Features.Albums.Commands.DeleteAlbum
+namespace PhotoGallery.Application.Features.Images.Commands.DeleteImage
 {
-    public class DeleteAlbumCommand : IRequest
+    public class DeleteImageCommand : IRequest
     {
         public int Id { get; set; }
         public string UserId { get; set; } = string.Empty;
