@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
+using PhotoGallery.Domain.Dtos;
 using PhotoGallery.Domain.Entities;
 using PhotoGallery.Domain.Interfaces.Repositories;
 
 namespace PhotoGallery.Application.Features.Albums.Commands.UpdateAlbum
 {
-    public class UpdateAlbumCommandHandler : IRequestHandler<UpdateAlbumCommand, UpdateAlbumDto>
+    public class UpdateAlbumCommandHandler : IRequestHandler<UpdateAlbumCommand, AlbumDto>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -16,7 +17,7 @@ namespace PhotoGallery.Application.Features.Albums.Commands.UpdateAlbum
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<UpdateAlbumDto> Handle(UpdateAlbumCommand request, CancellationToken cancellationToken)
+        public async Task<AlbumDto> Handle(UpdateAlbumCommand request, CancellationToken cancellationToken)
         {
             var repo = _unitOfWork.GetRepository<Album>();
             var albumToUpdate = await repo.GetByIdAsync(request.Id);
@@ -31,7 +32,7 @@ namespace PhotoGallery.Application.Features.Albums.Commands.UpdateAlbum
 
             await _unitOfWork.SaveChangesAsync();
 
-            return _mapper.Map<UpdateAlbumDto>(albumToUpdate);
+            return _mapper.Map<AlbumDto>(albumToUpdate);
         }
     }
 }

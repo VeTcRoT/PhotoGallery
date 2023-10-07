@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using PhotoGallery.Domain.Dtos;
 using PhotoGallery.Domain.Entities;
 using PhotoGallery.Domain.Interfaces.Repositories;
 
 namespace PhotoGallery.Application.Features.Albums.Commands.CreateAlbum
 {
-    public class CreateAlbumCommandHandler : IRequestHandler<CreateAlbumCommand, CreateAlbumDto>
+    public class CreateAlbumCommandHandler : IRequestHandler<CreateAlbumCommand, AlbumDto>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,7 +20,7 @@ namespace PhotoGallery.Application.Features.Albums.Commands.CreateAlbum
             _userManager = userManager;
         }
 
-        public async Task<CreateAlbumDto> Handle(CreateAlbumCommand request, CancellationToken cancellationToken)
+        public async Task<AlbumDto> Handle(CreateAlbumCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(request.UserId);
 
@@ -43,7 +44,7 @@ namespace PhotoGallery.Application.Features.Albums.Commands.CreateAlbum
 
             await _unitOfWork.SaveChangesAsync();
 
-            return _mapper.Map<CreateAlbumDto>(userAlbum.Album);
+            return _mapper.Map<AlbumDto>(userAlbum.Album);
         }
     }
 }
