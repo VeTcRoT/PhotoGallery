@@ -10,4 +10,8 @@
     <ProjectReference Include="..\PhotoGallery.Application\PhotoGallery.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

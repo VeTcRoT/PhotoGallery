@@ -4,7 +4,7 @@ namespace PhotoGallery.Domain.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        public ICollection<Album> UserAlbums { get; set; } = 
+        public ICollection<Album> Albums { get; set; } = 
             new List<Album>();
     }
 }
