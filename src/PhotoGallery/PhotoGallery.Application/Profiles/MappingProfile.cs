@@ -2,6 +2,7 @@
 using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
 using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
 using PhotoGallery.Application.Features.Images.Commands.CreateImage;
+using PhotoGallery.Application.Features.Images.Queries.ListPagedImages;
 using PhotoGallery.Domain.Dtos;
 using PhotoGallery.Domain.Entities;
 
@@ -18,6 +19,7 @@ namespace PhotoGallery.Application.Profiles
 
             CreateMap<CreateImageCommand, Image>();
             CreateMap<Image, CreateImageDto>();
+            CreateMap<Image, ListPagedImageDto>();
         }
     }
 }
