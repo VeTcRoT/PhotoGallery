@@ -5,6 +5,6 @@ namespace PhotoGallery.Domain.Interfaces.Repositories
     public interface IAlbumRepository : IBaseRepository<Album>
     {
         Task<IReadOnlyCollection<Album>> GetPagedAlbumsAsync(int pageNumber, int pageSize);
-        Task<Album> GetAlbumWithImagesAsync(int id);
+        Task<Album?> GetAlbumWithImagesAsync(int id);
     }
 }

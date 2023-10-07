@@ -9,7 +9,7 @@ namespace PhotoGallery.Persistence.Repositories
         where TEntity : EntityBase
     {
 
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public BaseRepository(PhotoGalleryDbContext dbContext)
         {
