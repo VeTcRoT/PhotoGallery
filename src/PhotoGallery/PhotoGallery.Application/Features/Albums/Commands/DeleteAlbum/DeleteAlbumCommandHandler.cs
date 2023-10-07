@@ -8,11 +8,13 @@ namespace PhotoGallery.Application.Features.Albums.Commands.DeleteAlbum
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IImageService _imageService;
+        private readonly IUserService _userService;
 
-        public DeleteAlbumCommandHandler(IUnitOfWork unitOfWork, IImageService imageService)
+        public DeleteAlbumCommandHandler(IUnitOfWork unitOfWork, IImageService imageService, IUserService userService)
         {
             _unitOfWork = unitOfWork;
             _imageService = imageService;
+            _userService = userService;
         }
 
         public async Task Handle(DeleteAlbumCommand request, CancellationToken cancellationToken)
@@ -24,6 +26,11 @@ namespace PhotoGallery.Application.Features.Albums.Commands.DeleteAlbum
             {
                 throw new ArgumentException(
                     $"Album with id: {request.Id} can't be found.", nameof(request.Id));
+            }
+
+            if (albumToDelete.UserId != request.UserId && !await _userService.IsAdminAsync(request.UserId))
+            {
+                throw new ArgumentException("User have no rights to delete album.", nameof(request.UserId));
             }
 
             _imageService.DeleteImages(albumToDelete.Images.Select(i => i.FileName));

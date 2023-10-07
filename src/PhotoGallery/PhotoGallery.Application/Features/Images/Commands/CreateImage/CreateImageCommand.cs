@@ -7,7 +7,6 @@ namespace PhotoGallery.Application.Features.Images.Commands.CreateImage
     {
         public IFormFile Image { get; set; } = null!;
         public int AlbumId { get; set; }
-        public uint Likes { get; set; }
-        public uint Dislikes { get; set; }
+        public string UserId { get; set; } = string.Empty;
     }
 }

@@ -21,9 +21,7 @@ namespace PhotoGallery.Application.Features.Images.Commands.CreateImage
 
         public async Task<CreateImageDto> Handle(CreateImageCommand request, CancellationToken cancellationToken)
         {
-            var albumRepo = _unitOfWork.GetRepository<Album>();
-
-            var album = await albumRepo.GetByIdAsync(request.AlbumId);
+            var album = await _unitOfWork.AlbumRepository.GetByIdAsync(request.AlbumId);
 
             if (album == null)
             {
@@ -31,13 +29,20 @@ namespace PhotoGallery.Application.Features.Images.Commands.CreateImage
                     $"Album with id: {request.AlbumId} can't be found.", nameof(request.AlbumId));
             }
 
-            await _imageService.UploadImageAsync(request.Image);
+            if (album.UserId != request.UserId)
+            {
+                throw new ArgumentException("User have no rights to add image to this album.", nameof(request.UserId));
+            }
 
-            var imageRepo = _unitOfWork.GetRepository<Image>();
+            var imagePath = await _imageService.UploadImageAsync(request.Image);
 
-            var imageToAdd = _mapper.Map<Image>(request);
+            var imageToAdd = new Image
+            {
+                FileName = imagePath,
+                Album = album
+            };
 
-            var image = await imageRepo.CreateAsync(imageToAdd);
+            var image = await _unitOfWork.ImageRepository.CreateAsync(imageToAdd);
 
             return _mapper.Map<CreateImageDto>(image);
         }
