@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
+using PhotoGallery.Application.Features.Albums.Commands.UpdateAlbum;
 using PhotoGallery.Domain.Entities;
 
 namespace PhotoGallery.Application.Profiles
@@ -10,6 +11,7 @@ namespace PhotoGallery.Application.Profiles
         {
             CreateMap<Album, CreateAlbumDto>();
             CreateMap<CreateAlbumCommand, Album>();
+            CreateMap<Album, UpdateAlbumDto>();
         }
     }
 }
