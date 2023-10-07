@@ -2,7 +2,7 @@
 {
     public class UserAlbum : EntityBase
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         public int AlbumId { get; set; }
 
         public ApplicationUser User { get; set; } = null!;
