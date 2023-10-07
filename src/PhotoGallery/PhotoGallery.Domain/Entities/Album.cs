@@ -2,9 +2,8 @@
 {
     public class Album : EntityBase
     {
-        public int Title { get; set; }
-        public int Description { get; set; }
-        public string FolderName { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         public ICollection<Image> Images { get; set; } = 
             new List<Image>();
