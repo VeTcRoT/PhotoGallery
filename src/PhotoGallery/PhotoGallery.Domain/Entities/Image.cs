@@ -6,5 +6,6 @@
         public int AlbumId { get; set; }
         
         public Album Album { get; set; } = null!;
+        public ICollection<Rate> Rate { get; set; } = new List<Rate>();
     }
 }
