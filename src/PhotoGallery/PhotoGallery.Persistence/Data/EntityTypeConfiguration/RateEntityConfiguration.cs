@@ -9,6 +9,9 @@ namespace PhotoGallery.Persistence.Data.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Rate> builder)
         {
             builder.HasKey(rate => rate.Id);
+
+            builder.HasIndex(rate => new { rate.ImageId, rate.UserId })
+            .IsUnique();
         }
     }
 }
