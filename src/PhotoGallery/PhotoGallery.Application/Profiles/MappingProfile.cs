@@ -9,6 +9,7 @@ namespace PhotoGallery.Application.Profiles
         public MappingProfile()
         {
             CreateMap<Album, CreateAlbumDto>();
+            CreateMap<CreateAlbumCommand, Album>();
         }
     }
 }
