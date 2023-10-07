@@ -13,15 +13,10 @@ namespace PhotoGallery.Application.Services
             _userManager = userManager;
         }
 
-        public async Task<bool> IsAdmin(string userId)
+        public async Task<bool> IsAdminAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             return await _userManager.IsInRoleAsync(user, "Admin");
-        }
-
-        public async Task<bool> UserExists(string userId)
-        {
-            return await _userManager.FindByIdAsync(userId) != null;
         }
     }
 }

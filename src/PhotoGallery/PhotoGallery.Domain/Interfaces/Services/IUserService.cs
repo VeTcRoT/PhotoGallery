@@ -2,7 +2,6 @@
 {
     public interface IUserService
     {
-        Task<bool> UserExists(string userId);
-        Task<bool> IsAdmin(string userId);
+        Task<bool> IsAdminAsync(string userId);
     }
 }
