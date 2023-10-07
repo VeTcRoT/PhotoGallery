@@ -6,8 +6,7 @@ namespace PhotoGallery.Domain.Interfaces.Repositories
     {
         IAlbumRepository AlbumRepository { get; }
         IImageRepository ImageRepository { get; }
-        IBaseRepository<TEntity> GetRepository<TEntity>()
-            where TEntity : EntityBase;
+        IRateRepository RateRepository { get; }
         Task<int> SaveChangesAsync();
     }
 }
