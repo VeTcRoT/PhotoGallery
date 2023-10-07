@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
-using PhotoGallery.Application.Features.Albums.Commands.UpdateAlbum;
+using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
+using PhotoGallery.Domain.Dtos;
 using PhotoGallery.Domain.Entities;
 
 namespace PhotoGallery.Application.Profiles
@@ -9,9 +10,9 @@ namespace PhotoGallery.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Album, CreateAlbumDto>();
             CreateMap<CreateAlbumCommand, Album>();
-            CreateMap<Album, UpdateAlbumDto>();
+            CreateMap<Album, AlbumDto>();
+            CreateMap<Album, ListPagedAlbumsDto>();
         }
     }
 }
