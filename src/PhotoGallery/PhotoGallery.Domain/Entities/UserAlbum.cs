@@ -1,6 +1,6 @@
 ﻿namespace PhotoGallery.Domain.Entities
 {
-    public class UserAlbum
+    public class UserAlbum : EntityBase
     {
         public int UserId { get; set; }
         public int AlbumId { get; set; }

@@ -1,8 +1,7 @@
 ﻿namespace PhotoGallery.Domain.Entities
 {
-    public class Image
+    public class Image : EntityBase
     {
-        public int Id { get; set; }
         public string FileName { get; set; } = string.Empty;
         public int AlbumId { get; set; }
         public uint Likes { get; set; }
