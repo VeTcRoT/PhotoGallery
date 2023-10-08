@@ -1,0 +1,22 @@
+﻿@using PhotoGallery.Domain.Helpers;
+@using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
+
+@model PagedList<ListPagedAlbumsDto>
+
+<h2>Albums</h2>
+<div class="row">
+    @foreach (var album in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@album.Title</h5>
+                    <p class="card-text">@album.Description</p>
+                    <a class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<partial name="_PagerPartialView" model="Model"/>
