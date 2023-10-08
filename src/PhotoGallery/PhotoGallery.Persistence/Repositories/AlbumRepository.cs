@@ -20,5 +20,11 @@ namespace PhotoGallery.Persistence.Repositories
             return await _dbSet.Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
         }
+
+        public async Task<IReadOnlyCollection<Album>> GetPagedAlbumsByUserIdAsync(string userId, int pageNumber, int pageSize)
+        {
+            return await _dbSet.Where(a => a.UserId == userId).Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+        }
     }
 }
