@@ -2,6 +2,15 @@
 
 @model PagedList<ListPagedAlbumsDto>
 
+@{
+    var pagerModel = new PagerModel
+    {
+        PageData = Model,
+        Controller = "Home",
+        Action = "Index"
+    };
+}
+
 <h2>Albums</h2>
 <div class="row">
     @foreach (var album in Model)
@@ -18,4 +27,4 @@
     }
 </div>
 
-<partial name="_PagerPartialView" model="Model"/>
+<partial name="_PagerPartialView" model="pagerModel" />
