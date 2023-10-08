@@ -12,7 +12,6 @@ namespace PhotoGallery.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-            services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IUserService, UserService>();
 
             return services;
