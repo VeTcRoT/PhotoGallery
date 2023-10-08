@@ -21,6 +21,8 @@ namespace PhotoGallery.Application.Profiles
             CreateMap<Album, GetAlbumsByUserIdDto>();
             CreateMap<PagedList<Album>, PagedList<ListPagedAlbumsDto>>()
                 .ConvertUsing<PagedListConverter<Album, ListPagedAlbumsDto>>();
+            CreateMap<PagedList<Album>, PagedList<GetAlbumsByUserIdDto>>()
+                .ConvertUsing<PagedListConverter<Album, GetAlbumsByUserIdDto>>();
 
             CreateMap<CreateImageCommand, Image>();
             CreateMap<Image, CreateImageDto>();
