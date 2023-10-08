@@ -40,6 +40,20 @@ namespace PhotoGallery.MVC.Controllers
             return View(images);
         }
 
+        public IActionResult CreateImage(int albumId)
+        {
+            ViewBag.AlbumId = albumId;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateImage(CreateImageCommand command)
+        {
+            await _mediator.Send(command);
+
+            return RedirectToAction(nameof(UserImages), new { command.AlbumId });
+        }
+
         public async Task<IActionResult> DeleteImage(DeleteImageDto dto)
         {
             var command = _mapper.Map<DeleteImageCommand>(dto);
