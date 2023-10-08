@@ -2,6 +2,7 @@
 {
     public class ListPagedImageDto
     {
+        public int Id { get; set; }
         public string FileName { get; set; } = string.Empty;
         public int AlbumId { get; set; }
         public uint Likes { get; set; }
