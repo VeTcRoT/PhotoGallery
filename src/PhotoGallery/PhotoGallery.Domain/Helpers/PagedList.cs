@@ -2,7 +2,16 @@
 
 namespace PhotoGallery.Domain.Helpers
 {
-    public class PagedList<T> : List<T>
+    public interface IPageData
+    {
+        int CurrentPage { get; }
+        int TotalPages { get; }
+        int PageSize { get; }
+        int TotalCount { get; }
+        bool HasPrevious { get; }
+        bool HasNext { get; }
+    }
+    public class PagedList<T> : List<T>, IPageData
     {
         public int CurrentPage { get; private set; }
         public int TotalPages { get; private set; }
