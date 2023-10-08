@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
+using PhotoGallery.Application.Features.Albums.Queries.GetAlbumsByUserId;
 using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
 using PhotoGallery.Application.Features.Images.Commands.CreateImage;
 using PhotoGallery.Application.Features.Images.Queries.ListPagedImages;
@@ -16,6 +17,7 @@ namespace PhotoGallery.Application.Profiles
             CreateMap<Album, AlbumDto>();
             CreateMap<Album, ListPagedAlbumsDto>();
             CreateMap<Album, CreateAlbumDto>();
+            CreateMap<Album, GetAlbumsByUserIdDto>();
 
             CreateMap<CreateImageCommand, Image>();
             CreateMap<Image, CreateImageDto>();
