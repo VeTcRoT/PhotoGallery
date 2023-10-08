@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PhotoGallery.Domain.Entities;
+using PhotoGallery.Domain.Helpers;
 using PhotoGallery.Domain.Interfaces.Repositories;
 using PhotoGallery.Persistence.Data;
 
@@ -14,11 +15,10 @@ namespace PhotoGallery.Persistence.Repositories
             return await _dbSet.Include(i => i.Album).Where(i => i.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IReadOnlyCollection<Image>> GetImagesByAlbumIdAndPagedAsync(int albumId, int pageNumber, int pageSize)
+        public async Task<PagedList<Image>> GetImagesByAlbumIdAndPagedAsync(int albumId, int pageNumber, int pageSize)
         {
-            return await _dbSet.Include(i => i.Rate)
-                .Where(i => i.AlbumId == albumId).Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize).ToListAsync();
+            return await PagedList<Image>.CreateAsync(_dbSet.Include(i => i.Rate)
+                .Where(i => i.AlbumId == albumId), pageNumber, pageSize);
         }
     }
 }
