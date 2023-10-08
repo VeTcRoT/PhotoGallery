@@ -4,7 +4,7 @@
 
 @{
     string controller = Model.Controller;
-    string action = !string.IsNullOrEmpty(Model.Action) ? "/" + Model.Action : "";
+    string action = Model.Action;
     string additionalParams = string.Empty;
     if (Model.QueryParameters?.Count > 0)
     {
@@ -19,7 +19,7 @@
             @if (Model.PageData.HasPrevious)
             {
                 <li class="page-item">
-                    <a class="page-link" href="/@controller@action?PageNumber=@(Model.PageData.CurrentPage - 1)&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")" aria-label="Previous">
+                    <a class="page-link" href="/@controller/@action?PageNumber=@(Model.PageData.CurrentPage - 1)&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
@@ -31,7 +31,7 @@
                 @for (var i = 1; i <= Model.PageData.TotalPages; i++)
                 {
                     <li class="page-item @(i == Model.PageData.CurrentPage ? "active" : "")">
-                        <a class="page-link" href="/@controller@action?PageNumber=@i&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")">@i</a>
+                        <a class="page-link" href="/@controller/@action?PageNumber=@i&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")">@i</a>
                     </li>
                 }
             }
@@ -54,7 +54,7 @@
                 for (var i = startPage; i <= endPage; i++)
                 {
                     <li class="page-item @(i == Model.PageData.CurrentPage ? "active" : "")">
-                        <a class="page-link" href="/@controller@action?PageNumber=@i&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")">@i</a>
+                        <a class="page-link" href="/@controller/@action?PageNumber=@i&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")">@i</a>
                     </li>
                 }
             }
@@ -62,7 +62,7 @@
             @if (Model.PageData.HasNext)
             {
                 <li class="page-item">
-                    <a class="page-link" href="/@controller@action?PageNumber=@(Model.PageData.CurrentPage + 1)&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")" aria-label="Next">
+                    <a class="page-link" href="/@controller/@action?PageNumber=@(Model.PageData.CurrentPage + 1)&PageSize=@Model.PageData.PageSize@(additionalParams != string.Empty ? "&" + additionalParams : "")" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>
