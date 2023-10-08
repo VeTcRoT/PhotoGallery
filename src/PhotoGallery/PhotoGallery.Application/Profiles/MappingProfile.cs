@@ -6,6 +6,7 @@ using PhotoGallery.Application.Features.Images.Commands.CreateImage;
 using PhotoGallery.Application.Features.Images.Queries.ListPagedImages;
 using PhotoGallery.Domain.Dtos;
 using PhotoGallery.Domain.Entities;
+using PhotoGallery.Domain.Helpers;
 
 namespace PhotoGallery.Application.Profiles
 {
@@ -18,6 +19,12 @@ namespace PhotoGallery.Application.Profiles
             CreateMap<Album, ListPagedAlbumsDto>();
             CreateMap<Album, CreateAlbumDto>();
             CreateMap<Album, GetAlbumsByUserIdDto>();
+            CreateMap<PagedList<Album>, PagedList<ListPagedAlbumsDto>>()
+                .ConstructUsing((src, context) =>
+                {
+                    var items = context.Mapper.Map<List<ListPagedAlbumsDto>>(src);
+                    return new PagedList<ListPagedAlbumsDto>(items, src.TotalCount, src.CurrentPage, src.PageSize);
+                });
 
             CreateMap<CreateImageCommand, Image>();
             CreateMap<Image, CreateImageDto>();
