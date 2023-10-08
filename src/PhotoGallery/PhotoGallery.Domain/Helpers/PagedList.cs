@@ -32,6 +32,15 @@ namespace PhotoGallery.Domain.Helpers
         public static async Task<PagedList<T>> CreateAsync(
             IQueryable<T> source, int pageNumber, int pageSize)
         {
+            if (pageNumber == 0 || pageSize == 0)
+            {
+                pageNumber = 1;
+                pageSize = 5;
+            }
+
+            if (pageSize > 5)
+                pageSize = 5;
+
             var count = source.Count();
             var items = await source.Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
