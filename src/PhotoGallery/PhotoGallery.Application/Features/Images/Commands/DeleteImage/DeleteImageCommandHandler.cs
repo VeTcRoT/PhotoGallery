@@ -36,6 +36,8 @@ namespace PhotoGallery.Application.Features.Images.Commands.DeleteImage
 
             _imageService.DeleteImage(imageToDelete.FileName);
 
+            _unitOfWork.ImageRepository.Delete(imageToDelete);
+
             await _unitOfWork.SaveChangesAsync();
         }
     }
