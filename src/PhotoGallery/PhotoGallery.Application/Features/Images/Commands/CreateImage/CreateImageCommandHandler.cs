@@ -44,6 +44,8 @@ namespace PhotoGallery.Application.Features.Images.Commands.CreateImage
 
             var image = await _unitOfWork.ImageRepository.CreateAsync(imageToAdd);
 
+            await _unitOfWork.SaveChangesAsync();
+
             return _mapper.Map<CreateImageDto>(image);
         }
     }
