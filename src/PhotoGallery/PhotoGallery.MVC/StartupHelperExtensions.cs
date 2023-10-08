@@ -12,6 +12,7 @@ namespace PhotoGallery.MVC
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddControllersWithViews();
+            builder.Services.AddRazorPages();
 
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices();
