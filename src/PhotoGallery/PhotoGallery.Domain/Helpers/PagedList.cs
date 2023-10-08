@@ -2,7 +2,16 @@
 
 namespace PhotoGallery.Domain.Helpers
 {
-    public class PagedList<T> : List<T>
+    public interface IPageData
+    {
+        int CurrentPage { get; }
+        int TotalPages { get; }
+        int PageSize { get; }
+        int TotalCount { get; }
+        bool HasPrevious { get; }
+        bool HasNext { get; }
+    }
+    public class PagedList<T> : List<T>, IPageData
     {
         public int CurrentPage { get; private set; }
         public int TotalPages { get; private set; }
@@ -23,6 +32,15 @@ namespace PhotoGallery.Domain.Helpers
         public static async Task<PagedList<T>> CreateAsync(
             IQueryable<T> source, int pageNumber, int pageSize)
         {
+            if (pageNumber == 0 || pageSize == 0)
+            {
+                pageNumber = 1;
+                pageSize = 5;
+            }
+
+            if (pageSize > 5)
+                pageSize = 5;
+
             var count = source.Count();
             var items = await source.Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize).ToListAsync();

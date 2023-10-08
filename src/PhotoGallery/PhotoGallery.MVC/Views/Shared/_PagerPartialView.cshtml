@@ -1,0 +1,68 @@
+﻿@using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
+
+@model PagerModel
+
+@{
+    string controller = Model.Controller;
+    string action = Model.Action;
+}
+
+@if (Model.PageData.TotalPages > 1)
+{
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @if (Model.PageData.HasPrevious)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-PageNumber="@(Model.PageData.CurrentPage - 1)" asp-route-PageSize="@Model.PageData.PageSize" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            }
+
+            @if (Model.PageData.TotalPages <= 5)
+            {
+                @for (var i = 1; i <= Model.PageData.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageData.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-PageNumber="@i" asp-route-PageSize="@Model.PageData.PageSize">@i</a>
+                    </li>
+                }
+            }
+            else
+            {
+                var startPage = Math.Max(Model.PageData.CurrentPage - 2, 1);
+                var endPage = Math.Min(Model.PageData.CurrentPage + 2, Model.PageData.TotalPages);
+
+                if (Model.PageData.CurrentPage <= 2)
+                {
+                    startPage = 1;
+                    endPage = 5;
+                }
+                else if (Model.PageData.CurrentPage >= Model.PageData.TotalPages - 2)
+                {
+                    startPage = Model.PageData.TotalPages - 4;
+                    endPage = Model.PageData.TotalPages;
+                }
+
+                for (var i = startPage; i <= endPage; i++)
+                {
+                    <li class="page-item @(i == Model.PageData.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-PageNumber="@i" asp-route-PageSize="@Model.PageData.PageSize">@i</a>
+                    </li>
+                }
+            }
+
+            @if (Model.PageData.HasNext)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="@controller" asp-action="@action" asp-route-PageNumber="@(Model.PageData.CurrentPage + 1)" asp-route-PageSize="@Model.PageData.PageSize" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
