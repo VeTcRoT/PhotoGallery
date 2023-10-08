@@ -20,7 +20,9 @@
                 <div class="card-body">
                     <h5 class="card-title">@album.Title</h5>
                     <p class="card-text">@album.Description</p>
-                    <a class="btn btn-primary">Details</a>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary mr-2">Details</a>
                 </div>
             </div>
         </div>
@@ -28,3 +30,5 @@
 </div>
 
 <partial name="_PagerPartialView" model="pagerModel" />
+
+<a asp-action="UserAlbums">Click</a>
