@@ -2,7 +2,7 @@
 
 namespace PhotoGallery.Application.Features.Albums.Queries.GetAlbumsByUserId
 {
-    public class GetAlbumByUserIdDto : AlbumDto 
+    public class GetAlbumsByUserIdDto : AlbumDto 
     {
         public int Id { get; set; }
     }
