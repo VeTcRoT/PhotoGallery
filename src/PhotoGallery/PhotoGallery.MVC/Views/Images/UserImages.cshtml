@@ -1,0 +1,64 @@
+﻿@using PhotoGallery.Application.Features.Images.Queries.ListPagedImages;
+@using System.Security.Claims;
+
+@model PagedList<ListPagedImageDto>
+
+@{
+    var pagerModel = new PagerModel
+    {
+        PageData = Model,
+        Controller = "Images",
+        Action = "UserImages",
+        QueryParameters = new Dictionary<string, string>
+        {
+            { "AlbumId", ViewBag.AlbumId.ToString() }
+        }
+    };
+}
+
+<a asp-action="CreateImage" asp-route-albumId="@ViewBag.AlbumId" class="btn btn-primary mb-4">Add New Image</a>
+
+<div class="container">
+    <div class="row">
+        @foreach (var image in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div>
+                    <div class="col-md-8">
+                        <img src="/@image.FileName" class="img-fluid thumbnail" alt="Image" onclick="openImageModal(event)">
+                    </div>
+                    <div class="col-md-8 d-flex gap-3 mt-1">
+                        <div class="d-flex align-items-center gap-1">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>Likes: <span class="font-weight-bold text-success">@image.Likes</span></span>
+                        </div>
+                        <div class="d-flex align-items-center gap-1">
+                            <i class="fas fa-thumbs-down"></i>
+                            <span>Dislikes: <span class="font-weight-bold text-danger">@image.Dislikes</span></span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <form method="post" asp-action="DeleteImage">
+                                <input type="hidden" name="Id" value="@image.Id" />
+                                <input type="hidden" name="AlbumId" value="@image.AlbumId"/>
+                                <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)"/>
+                                <input type="submit" class="btn btn-danger" value="Delete" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid" alt="Full Width Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_PagerPartialView" model="pagerModel" />
