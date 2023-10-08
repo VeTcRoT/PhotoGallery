@@ -28,5 +28,14 @@ namespace PhotoGallery.MVC.Controllers
 
             return View(images);
         }
+
+        public async Task<IActionResult> UserImages(ListPagedImagesQuery query)
+        {
+            var images = await _mediator.Send(query);
+
+            ViewBag.AlbumId = query.AlbumId;
+
+            return View(images);
+        }
     }
 }
