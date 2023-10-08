@@ -13,10 +13,12 @@ namespace PhotoGallery.MVC.Controllers
     public class ImagesController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public ImagesController(IMediator mediator)
+        public ImagesController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -36,6 +38,15 @@ namespace PhotoGallery.MVC.Controllers
             ViewBag.AlbumId = query.AlbumId;
 
             return View(images);
+        }
+
+        public async Task<IActionResult> DeleteImage(DeleteImageDto dto)
+        {
+            var command = _mapper.Map<DeleteImageCommand>(dto);
+
+            await _mediator.Send(command);
+
+            return RedirectToAction(nameof(UserImages), new { dto.AlbumId });
         }
     }
 }
