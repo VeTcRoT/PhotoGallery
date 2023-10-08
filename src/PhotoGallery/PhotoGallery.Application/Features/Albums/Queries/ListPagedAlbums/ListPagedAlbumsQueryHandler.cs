@@ -18,15 +18,6 @@ namespace PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums
 
         public async Task<PagedList<ListPagedAlbumsDto>> Handle(ListPagedAlbumsQuery request, CancellationToken cancellationToken)
         {
-            if (request.PageNumber == 0 && request.PageSize == 0)
-            {
-                request.PageNumber = 1;
-                request.PageSize = 5;
-            }
-
-            if (request.PageSize > 10)
-                request.PageSize = 10;
-
             var pagedAlbums = await _unitOfWork.AlbumRepository
                 .GetPagedAlbumsAsync(request.PageNumber, request.PageSize);
 
