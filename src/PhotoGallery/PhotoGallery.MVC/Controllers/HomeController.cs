@@ -15,15 +15,6 @@ namespace PhotoGallery.MVC.Controllers
 
         public async Task<IActionResult> Index(ListPagedAlbumsQuery query)
         {
-            if (query.PageNumber == 0 && query.PageSize == 0)
-            {
-                query.PageNumber = 1;
-                query.PageSize = 5;
-            }
-
-            if (query.PageSize > 10)
-                query.PageSize = 10;
-
             var albums = await _mediator.Send(query);
 
             return View(albums);
