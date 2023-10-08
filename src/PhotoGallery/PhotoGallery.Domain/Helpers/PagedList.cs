@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace PhotoGallery.Application.Helpers
+namespace PhotoGallery.Domain.Helpers
 {
     public class PagedList<T> : List<T>
     {
