@@ -20,11 +20,7 @@ namespace PhotoGallery.Application.Profiles
             CreateMap<Album, CreateAlbumDto>();
             CreateMap<Album, GetAlbumsByUserIdDto>();
             CreateMap<PagedList<Album>, PagedList<ListPagedAlbumsDto>>()
-                .ConstructUsing((src, context) =>
-                {
-                    var items = context.Mapper.Map<List<ListPagedAlbumsDto>>(src);
-                    return new PagedList<ListPagedAlbumsDto>(items, src.TotalCount, src.CurrentPage, src.PageSize);
-                });
+                .ConvertUsing<PagedListConverter<Album, ListPagedAlbumsDto>>();
 
             CreateMap<CreateImageCommand, Image>();
             CreateMap<Image, CreateImageDto>();
