@@ -5,7 +5,6 @@ using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
 using PhotoGallery.Application.Features.Albums.Commands.DeleteAlbum;
 using PhotoGallery.Application.Features.Albums.Queries.GetAlbumsByUserId;
 using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
-using System.Security.Claims;
 
 namespace PhotoGallery.MVC.Controllers
 {
@@ -29,24 +28,28 @@ namespace PhotoGallery.MVC.Controllers
 
         public async Task<IActionResult> UserAlbums(GetAlbumsByUserIdQuery query)
         {
-            query.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             var albums = await _mediator.Send(query);
             return View(albums);
         }
 
+        public IActionResult CreateAlbum()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> CreateAlbum(CreateAlbumCommand command)
         {
             await _mediator.Send(command);
 
-            return RedirectToAction(nameof(UserAlbums));
+            return RedirectToAction(nameof(UserAlbums), new { command.UserId });
         }
 
         public async Task<IActionResult> DeleteAlbum(DeleteAlbumCommand command)
         {
             await _mediator.Send(command);
 
-            return RedirectToAction(nameof(UserAlbums));
+            return RedirectToAction(nameof(UserAlbums), new { command.UserId });
         }
     }
 }

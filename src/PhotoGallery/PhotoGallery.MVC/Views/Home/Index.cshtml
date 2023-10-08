@@ -1,4 +1,5 @@
 ﻿@using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
+@using System.Security.Claims;
 
 @model PagedList<ListPagedAlbumsDto>
 
@@ -22,7 +23,7 @@
                     <p class="card-text">@album.Description</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary mr-2">Details</a>
+                    <a asp-controller="Images" asp-route-AlbumId="@album.Id" class="btn btn-primary mr-2">Details</a>
                 </div>
             </div>
         </div>
@@ -30,5 +31,3 @@
 </div>
 
 <partial name="_PagerPartialView" model="pagerModel" />
-
-<a asp-action="UserAlbums">Click</a>

@@ -8,15 +8,17 @@
     {
         PageData = Model,
         Controller = "Home",
-        Action = "UserAlbums"
+        Action = "UserAlbums",
+        QueryParameters = new Dictionary<string, string>
+        {
+            { "UserId", User.FindFirstValue(ClaimTypes.NameIdentifier) }
+        }
     };
 }
 
 <h2>My Albums</h2>
 
-<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#createAlbumModal">
-    Create New Album
-</button>
+<a asp-action="CreateAlbum" class="btn btn-primary mb-4">Create New Album</a>
 
 <div class="row">
     @foreach (var album in Model)
@@ -29,7 +31,7 @@
                 </div>
 
                 <div class="card-footer d-flex gap-1">
-                    <a href="#" class="btn btn-primary mr-2">Details</a>
+                    <a asp-controller="Images" asp-action="UserImages" asp-route-AlbumId="@album.Id" class="btn btn-primary mr-2">Details</a>
                     <form method="post" asp-action="DeleteAlbum">
                         <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
                         <input type="hidden" name="Id" value="@album.Id" />
@@ -39,36 +41,6 @@
             </div>
         </div>
     }
-</div>
-
-<div class="modal fade" id="createAlbumModal" tabindex="-1" role="dialog" aria-labelledby="createAlbumModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createAlbumModalLabel">Create New Album</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="createAlbumForm" method="post" asp-action="CreateAlbum">
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" name="Title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" name="Description" required></textarea>
-                    </div>
-                    <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)"/>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="createAlbumButton">Create</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
 
 <partial name="_PagerPartialView" model="pagerModel" />
