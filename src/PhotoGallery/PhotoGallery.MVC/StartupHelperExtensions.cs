@@ -4,6 +4,9 @@ using PhotoGallery.Application;
 using PhotoGallery.Domain.Entities;
 using PhotoGallery.Persistence.Data;
 using PhotoGallery.Persistence;
+using PhotoGallery.Domain.Interfaces.Services;
+using PhotoGallery.MVC.Services;
+using System.Reflection;
 
 namespace PhotoGallery.MVC
 {
@@ -25,6 +28,9 @@ namespace PhotoGallery.MVC
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<PhotoGalleryDbContext>();
+
+            builder.Services.AddScoped<IImageService, ImageService>();
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return builder.Build();
         }
