@@ -3,6 +3,7 @@ using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
 using PhotoGallery.Application.Features.Albums.Queries.GetAlbumsByUserId;
 using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
 using PhotoGallery.Application.Features.Images.Commands.CreateImage;
+using PhotoGallery.Application.Features.Images.Commands.RateImage;
 using PhotoGallery.Application.Features.Images.Queries.ListPagedImages;
 using PhotoGallery.Domain.Dtos;
 using PhotoGallery.Domain.Entities;
@@ -33,6 +34,8 @@ namespace PhotoGallery.Application.Profiles
 
             CreateMap<PagedList<Image>, PagedList<ListPagedImageDto>>()
                 .ConvertUsing<PagedListConverter<Image, ListPagedImageDto>>();
+
+            CreateMap<RateImageCommand, Rate>();
         }
     }
 }
