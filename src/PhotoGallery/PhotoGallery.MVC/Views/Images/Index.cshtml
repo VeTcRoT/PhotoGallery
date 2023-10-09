@@ -39,6 +39,17 @@
                             <i data-userid="@userId" data-imageid="@image.Id" class="@(liked != null ? liked == false ? "fa-solid" : "fa-regular" : "fa-regular") fa-thumbs-down"></i>
                             <span>Dislikes: <span class="font-weight-bold text-danger">@image.Dislikes</span></span>
                         </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="d-flex align-items-center">
+                                <form method="post" asp-action="DeleteImageAdmin">
+                                    <input type="hidden" name="Id" value="@image.Id" />
+                                    <input type="hidden" name="AlbumId" value="@image.AlbumId" />
+                                    <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+                                    <input type="submit" class="btn btn-danger" value="Delete" />
+                                </form>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
