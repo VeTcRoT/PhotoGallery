@@ -51,9 +51,21 @@ namespace PhotoGallery.MVC.Controllers
 
         public async Task<IActionResult> DeleteAlbum(DeleteAlbumCommand command)
         {
-            await _mediator.Send(command);
+            await DeleteAlbumAsync(command);
 
             return RedirectToAction(nameof(UserAlbums), new { command.UserId });
+        }
+
+        public async Task<IActionResult> DeleteAlbumAdmin(DeleteAlbumCommand command)
+        {
+            await DeleteAlbumAsync(command);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private async Task DeleteAlbumAsync(DeleteAlbumCommand command)
+        {
+            await _mediator.Send(command);
         }
     }
 }
