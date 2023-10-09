@@ -63,11 +63,23 @@ namespace PhotoGallery.MVC.Controllers
 
         public async Task<IActionResult> DeleteImage(DeleteImageDto dto)
         {
+            await DeleteImageAsync(dto);
+
+            return RedirectToAction(nameof(UserImages), new { dto.AlbumId });
+        }
+
+        public async Task<IActionResult> DeleteImageAdmin(DeleteImageDto dto)
+        {
+            await DeleteImageAsync(dto);
+
+            return RedirectToAction(nameof(Index), new { dto.AlbumId });
+        }
+
+        private async Task DeleteImageAsync(DeleteImageDto dto)
+        {
             var command = _mapper.Map<DeleteImageCommand>(dto);
 
             await _mediator.Send(command);
-
-            return RedirectToAction(nameof(UserImages), new { dto.AlbumId });
         }
     }
 }
