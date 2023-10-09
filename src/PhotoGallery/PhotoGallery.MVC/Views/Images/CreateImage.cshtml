@@ -1,0 +1,23 @@
+﻿@using System.Security.Claims;
+@using PhotoGallery.Application.Features.Images.Commands.CreateImage;
+
+@model CreateImageCommand
+
+<h2>Add Image</h2>
+
+<div style="max-width: 600px" class="mx-auto">
+    <form method="post" asp-action="CreateImage" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="description">Image</label>
+        <input type="file" class="form-control" name="Image" required>
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+    <input type="hidden" name="AlbumId" value="@ViewBag.AlbumId" />
+
+    <div class="form-group mt-1">
+        <button type="submit" class="btn btn-primary" style="width: 100%">Create</button>
+    </div>
+</form>
+</div>

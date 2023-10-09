@@ -1,0 +1,46 @@
+﻿@using PhotoGallery.Application.Features.Albums.Queries.GetAlbumsByUserId;
+@using System.Security.Claims;
+
+@model PagedList<GetAlbumsByUserIdDto>
+
+@{
+    var pagerModel = new PagerModel
+    {
+        PageData = Model,
+        Controller = "Home",
+        Action = "UserAlbums",
+        QueryParameters = new Dictionary<string, string>
+        {
+            { "UserId", User.FindFirstValue(ClaimTypes.NameIdentifier) }
+        }
+    };
+}
+
+<h2>My Albums</h2>
+
+<a asp-action="CreateAlbum" class="btn btn-primary mb-4">Create New Album</a>
+
+<div class="row">
+    @foreach (var album in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@album.Title</h5>
+                    <p class="card-text">@album.Description</p>
+                </div>
+
+                <div class="card-footer d-flex gap-1">
+                    <a asp-controller="Images" asp-action="UserImages" asp-route-AlbumId="@album.Id" class="btn btn-primary mr-2">Details</a>
+                    <form method="post" asp-action="DeleteAlbumAdmin">
+                        <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+                        <input type="hidden" name="Id" value="@album.Id" />
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<partial name="_PagerPartialView" model="pagerModel" />

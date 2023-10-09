@@ -1,0 +1,26 @@
+﻿@using System.Security.Claims;
+@using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
+
+@model CreateAlbumCommand
+
+<h2>Create Album</h2>
+
+<div style="max-width: 600px" class="mx-auto">
+    <form method="post" asp-action="CreateAlbum">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="Title" value="@Model?.Title" required>
+            <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" name="Description" value="@Model?.Description" required>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <input type="hidden" name="UserId" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+
+    <div class="form-group mt-1">
+        <button type="submit" class="btn btn-primary" style="width: 100%">Create</button>
+    </div>
+</form>
+</div>
