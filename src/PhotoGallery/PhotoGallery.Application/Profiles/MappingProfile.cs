@@ -28,7 +28,9 @@ namespace PhotoGallery.Application.Profiles
             CreateMap<Image, CreateImageDto>();
             CreateMap<Image, ListPagedImageDto>()
                 .ForMember(i => i.Likes, opt => opt.MapFrom(i => i.Rate.Where(r => r.IsLike).Count()))
-                .ForMember(i => i.Dislikes, opt => opt.MapFrom(i => i.Rate.Where(r => !r.IsLike).Count()));
+                .ForMember(i => i.Dislikes, opt => opt.MapFrom(i => i.Rate.Where(r => !r.IsLike).Count()))
+                .ForMember(i => i.UsersLikes, opt => opt.MapFrom(i => i.Rate.ToDictionary(r => r.UserId, r => r.IsLike)));
+
             CreateMap<PagedList<Image>, PagedList<ListPagedImageDto>>()
                 .ConvertUsing<PagedListConverter<Image, ListPagedImageDto>>();
         }
