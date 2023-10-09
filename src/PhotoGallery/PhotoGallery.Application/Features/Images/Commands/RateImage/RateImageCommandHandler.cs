@@ -24,6 +24,7 @@ namespace PhotoGallery.Application.Features.Images.Commands.RateImage
             if (rate == null)
             {
                 rate = _mapper.Map<Rate>(request);
+                await _unitOfWork.RateRepository.CreateAsync(rate);
             }
             else if (rate.IsLike == request.IsLike)
             {
