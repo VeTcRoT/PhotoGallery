@@ -32,6 +32,8 @@ namespace PhotoGallery.MVC
             builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+            Seed.SeedAdmin(builder.Services.BuildServiceProvider());
+
             return builder.Build();
         }
 
