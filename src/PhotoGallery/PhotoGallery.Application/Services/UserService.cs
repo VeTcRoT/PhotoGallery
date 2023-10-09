@@ -13,7 +13,7 @@ namespace PhotoGallery.Application.Services
             _userManager = userManager;
         }
 
-        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+        public async Task<ApplicationUser?> GetUserByIdAsync(string userId)
         {
             return await _userManager.FindByIdAsync(userId);
         }
