@@ -5,6 +5,7 @@ using PhotoGallery.Application.Features.Albums.Commands.CreateAlbum;
 using PhotoGallery.Application.Features.Albums.Commands.DeleteAlbum;
 using PhotoGallery.Application.Features.Albums.Queries.GetAlbumsByUserId;
 using PhotoGallery.Application.Features.Albums.Queries.ListPagedAlbums;
+using System;
 
 namespace PhotoGallery.MVC.Controllers
 {
@@ -40,6 +41,9 @@ namespace PhotoGallery.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAlbum(CreateAlbumCommand command)
         {
+            if (!ModelState.IsValid)
+                return View(nameof(CreateAlbum), command);
+
             await _mediator.Send(command);
 
             return RedirectToAction(nameof(UserAlbums), new { command.UserId });

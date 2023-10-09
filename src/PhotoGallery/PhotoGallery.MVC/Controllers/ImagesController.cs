@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using PhotoGallery.Application.Features.Images.Commands.CreateImage;
 using PhotoGallery.Application.Features.Images.Commands.DeleteImage;
 using PhotoGallery.Application.Features.Images.Queries.ListPagedImages;
+using PhotoGallery.Domain.Entities;
 using PhotoGallery.MVC.Models;
 
 namespace PhotoGallery.MVC.Controllers
@@ -49,6 +50,12 @@ namespace PhotoGallery.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateImage(CreateImageCommand command)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.AlbumId = command.AlbumId;
+                return View(nameof(CreateImage), command);
+            }
+                
             await _mediator.Send(command);
 
             return RedirectToAction(nameof(UserImages), new { command.AlbumId });
