@@ -22,21 +22,23 @@
     <div class="row">
         @foreach (var image in Model)
         {
-            bool? liked = image.UsersLikes.ContainsKey(User.FindFirstValue(ClaimTypes.NameIdentifier))
-                ? image.UsersLikes[User.FindFirstValue(ClaimTypes.NameIdentifier)] : null;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool? liked = userId != null && image.UsersLikes.ContainsKey(userId)
+                ? image.UsersLikes[userId] : null;
 
             <div class="col-md-4 mb-4">
                 <div>
                     <div class="col-md-8">
                         <img src="/@image.FileName" class="img-fluid thumbnail" alt="Image" onclick="openImageModal(event)">
                     </div>
-                    <div class="col-md-8 d-flex gap-3 mt-1">
+                    <div class="col-md-8 d-flex gap-3 mt-1 image-rating">
                         <div class="d-flex align-items-center gap-1">
-                            <i class="@(liked != null ? liked == true ? "fa-solid" : "fa-regular" : "fa-regular") fa-thumbs-up"></i>
+                            <i data-userid="@userId" data-imageid="@image.Id" class="@(liked != null ? liked == true ? "fa-solid" : "fa-regular" : "fa-regular") fa-thumbs-up"></i>
                             <span>Likes: <span class="font-weight-bold text-success">@image.Likes</span></span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
-                            <i class="@(liked != null ? liked == false ? "fa-solid" : "fa-regular" : "fa-regular") fa-thumbs-down"></i>
+                            <i data-userid="@userId" data-imageid="@image.Id" class="@(liked != null ? liked == false ? "fa-solid" : "fa-regular" : "fa-regular") fa-thumbs-down"></i>
                             <span>Dislikes: <span class="font-weight-bold text-danger">@image.Dislikes</span></span>
                         </div>
                         <div class="d-flex align-items-center">
