@@ -9,7 +9,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-action="UserAlbums" asp-route-UserId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Your Albums</a>
+            <a class="nav-link text-dark" asp-controller="Home" asp-action="UserAlbums" asp-route-UserId="@User.FindFirstValue(ClaimTypes.NameIdentifier)">Your Albums</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
