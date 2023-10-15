@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoGallery.Persistence.Data;
 
@@ -10,9 +11,10 @@ using PhotoGallery.Persistence.Data;
 namespace PhotoGallery.Persistence.Migrations
 {
     [DbContext(typeof(PhotoGalleryDbContext))]
-    partial class PhotoGalleryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231015072045_WithConfiguration")]
+    partial class WithConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.22");

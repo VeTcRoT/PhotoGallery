@@ -12,5 +12,12 @@ namespace PhotoGallery.Persistence.Data
 
         public PhotoGalleryDbContext(DbContextOptions<PhotoGalleryDbContext> options) : base(options)
         { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(typeof(PhotoGalleryDbContext).Assembly);
+
+            base.OnModelCreating(builder);
+        }
     }
 }
