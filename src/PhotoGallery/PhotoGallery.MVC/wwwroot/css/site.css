@@ -1,1 +1,8 @@
-﻿
+﻿.form-control
+{
+    margin-bottom: 15px;
+}
+
+#two-factor, #personal-data {
+    display: none;
+}

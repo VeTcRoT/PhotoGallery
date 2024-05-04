@@ -35,11 +35,11 @@ namespace PhotoGallery.Domain.Helpers
             if (pageNumber == 0 || pageSize == 0)
             {
                 pageNumber = 1;
-                pageSize = 5;
+                pageSize = 6;
             }
 
-            if (pageSize > 5)
-                pageSize = 5;
+            if (pageSize > 6)
+                pageSize = 6;
 
             var count = source.Count();
             var items = await source.Skip((pageNumber - 1) * pageSize)
